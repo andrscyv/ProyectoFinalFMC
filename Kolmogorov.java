@@ -271,10 +271,10 @@ public class Kolmogorov {
 	boolean flag  = false;
 
 	br = new BufferedReader(new InputStreamReader(System.in));
-	obj = "0100110001110101010101010100100100010101001100000010101111";
-	
+	//obj = "0100110001110101010101010100100100010101001100000010101111";
+	//obj = "1011";
 	// obtiene la cadena meta
-	//cargaObjetivo();
+	cargaObjetivo();
 	formateaInput();
 
 	n = obj.length();
@@ -282,7 +282,7 @@ public class Kolmogorov {
 	MM = 0;	
 	steps = 5000;
 
-	System.out.println("\nSe realizarán "+steps+" iteraciones, ¿quieres cambiarlo?");
+	System.out.println("\nSe realizarán "+steps+" iteraciones, ¿quieres cambiarlo? (S/N)");
 	resp = br.readLine().toUpperCase();
 
 	if(resp.equals("S")){
