@@ -16,22 +16,26 @@ public class UTM {
         }        
         StringBuilder cintaFinal = new StringBuilder(Cinta);
         boolean alcanzoHALT = false;
-        for (int i = 0; i < N; i++) {
-            if(estadoActual!=63){
-                leido = cintaFinal.charAt(cabeza)-'0';
-                //productividad = (escrituraCabeza[leido][estadoActual] && cintaFinal.charAt(cabeza) == '0') ? productividad+1:productividad;
-                //productividad = (!escrituraCabeza[leido][estadoActual] && cintaFinal.charAt(cabeza) != '0') ? productividad-1:productividad;
-                cintaFinal.setCharAt(cabeza, escrituraCabeza[leido][estadoActual] ? '1':'0' );
-                cabeza = movimientoCabeza[leido][estadoActual] ? cabeza-1:cabeza+1;
-                estadoActual = siguienteEstado[leido][estadoActual];
-            }else{
-                pasosHALT = i;
-                alcanzoHALT=true;
-                break;
+        try{
+            for (int i = 0; i < N; i++) {
+                if(estadoActual!=63){
+                    leido = cintaFinal.charAt(cabeza)-'0';                
+                    //productividad = (!escrituraCabeza[leido][estadoActual] && cintaFinal.charAt(cabeza) != '0') ? productividad-1:productividad;
+                    cintaFinal.setCharAt(cabeza, escrituraCabeza[leido][estadoActual] ? '1':'0' );
+                    cabeza = movimientoCabeza[leido][estadoActual] ? cabeza-1:cabeza+1;
+                    estadoActual = siguienteEstado[leido][estadoActual];
+                }else{
+                    pasosHALT = i;
+                    alcanzoHALT=true;
+                    break;
+                }
             }
+        }finally{ 
+            /*
+            * Regresa la cinta final.
+            * Si la cabeza se salió de la cinta regresa la cinta hasta ese punto
+            */
+            return cintaFinal.toString();  
         }
-        //String textoResultado = (alcanzoHALT) ? "Se alzanzo el estado de HALT en "+pasosHALT+" pasos" : "Se alcanzo el numero maximo de iteraciones para la simulacion";
-        //System.out.println(textoResultado+"\nLa productividad de esta maquina fue de: "+productividad);
-        return cintaFinal.toString(); 
     }
 }
