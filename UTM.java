@@ -16,7 +16,7 @@ public class UTM {
         }        
         StringBuilder cintaFinal = new StringBuilder(Cinta);
         boolean alcanzoHALT = false;
-        //try{
+        try{
             for (int i = 0; i < N; i++) {
                 if(estadoActual!=63){
                     leido = cintaFinal.charAt(cabeza)-'0';                
@@ -32,14 +32,12 @@ public class UTM {
             }
 
             return cintaFinal.toString();
-        //}catch(Exception e){ 
+        }catch(Exception e){ 
             /*
             * Regresa la cinta final.
-            * Si la cabeza se salió de la cinta regresa la cinta hasta ese punto
+            * Si la cabeza se salió de la cinta regresa la cinta original
             */
-
-        //    return Cinta;
-              
-        //}
+            return Cinta;    
+        }
     }
 }

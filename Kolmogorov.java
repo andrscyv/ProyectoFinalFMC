@@ -22,10 +22,10 @@ public class Kolmogorov {
 
   //Tamaño cinta
   //public static int tamCinta = 2000;
-  public static int tamCinta = 200;
+  public static int tamCinta = 2000;
 
   //Numero de pasos maximo para la mt
-  public static int maxPmt = 150;
+  public static int maxPmt = 1000;
 
   //Cinta de la TM
   public static String cinta;
@@ -123,7 +123,7 @@ public class Kolmogorov {
 	while(tamCinta/2 < obj.length())
 		tamCinta = tamCinta*2;
 
-	maxPmt = Math.round(3*tamCinta/4);
+	maxPmt = Math.round(tamCinta/2);
   }
 
   public static void formateaInput(){
