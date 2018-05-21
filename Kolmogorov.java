@@ -11,7 +11,7 @@ public class Kolmogorov {
   public static String cadenaMeta;
   public static String obj;
   public static double fitnessOfBest,fitness;
-  static int MM, steps;
+  static int steps;
 
   static RandomAccessFile ra;
   static PrintStream ps;
@@ -160,11 +160,8 @@ public class Kolmogorov {
 
 	mejorMT = maquinaAct;
 
-	if (MM==0)					// Minimize - worst case
-		fitnessOfBest=+1000000000;
-	else						// Maximize - worst case
-		fitnessOfBest=-1000000000;
-	//}endif
+	
+	fitnessOfBest=+1000000000;
   }//endMaquinaInicial
 
   // Obtiene la cinta generada por ma MT
@@ -220,37 +217,17 @@ public class Kolmogorov {
 	
 	// Checa si las cadenas se parecen por pares
 	for(int i = 0; i < tamCinta-1; i++)
-		F = ((cadenaAct.substring(i,i+2).equals(cadenaMeta.substring(i,i+2))) ? F:F+4);
+		F = ((cadenaAct.substring(i,i+2).equals(cadenaMeta.substring(i,i+2))) ? F:F+2);
 
 	// Checa si las cadenas se parecen por tercias
 	for(int i = 0; i < tamCinta-2; i++)
-		F = ((cadenaAct.substring(i,i+3).equals(cadenaMeta.substring(i,i+3))) ? F:F+2);
+		F = ((cadenaAct.substring(i,i+3).equals(cadenaMeta.substring(i,i+3))) ? F:F+4);
 
 
 	fitness  = F;
 	//endFor
 	return;
   }//endEvalua
-
-/*		
- *Selecciona el TOH
- */
-  public static void selecciona() {
-	if (MM==0){					// Minimiza
-		if (fitness < fitnessOfBest){
-			fitnessOfBest=fitness;
-			mejorCadena = cadenaAct;
-			mejorMT = maquinaAct;
-  		}//endIf
-	}else{						// Maximiza
-		if (fitness > fitnessOfBest){
-			fitnessOfBest=fitness;
-			mejorCadena = cadenaAct;
-			mejorMT = maquinaAct;
-  		}//endIf
-	}//endIf
-	return;
-  }//endSelecciona
 
   public static int distanciaHamming(String approx){
 	  int d = 0;
@@ -276,7 +253,6 @@ public class Kolmogorov {
 
 	n = obj.length();
 
-	MM = 0;	
 	steps = 5000;
 
 	br = new BufferedReader(new InputStreamReader(System.in));
@@ -304,15 +280,20 @@ public class Kolmogorov {
 	}
 
 	maquinaInicial(); // crea la maquina inicial aleatoriamente
-	
 	getSimulacion();
 	evalua();			//Evalua al individuo
+	fitnessOfBest = fitness;
 
 	for (int i=0;i<steps;i++){
-		muta();								//Muta
-		getSimulacion();				//Decodifica la i-ésima cadena
+		muta();					//Muta
+		getSimulacion();				
 		evalua();				//Evalua
-		selecciona();	
+		
+		if(fitness < fitnessOfBest){
+			mejorMT = maquinaAct;
+			mejorCadena = cadenaAct;
+			fitnessOfBest = fitness;
+		}
 
 		if(fitnessOfBest == 0)
 			break;					// Si ya se encontró la exacta entonces deja de iterar
