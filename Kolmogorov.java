@@ -11,7 +11,7 @@ public class Kolmogorov {
   public static String cadenaMeta;
   public static String obj;
   public static double fitnessOfBest,fitness;
-  static int MM, steps;
+  static int steps;
 
   static RandomAccessFile ra;
   static PrintStream ps;
@@ -119,8 +119,6 @@ public class Kolmogorov {
 		brCinta.close();
 	}
 
-	br.close();
-
 	while(tamCinta/2 < obj.length())
 		tamCinta = tamCinta*2;
 
@@ -162,12 +160,9 @@ public class Kolmogorov {
 
 	mejorMT = maquinaAct;
 
-	if (MM==0)					// Minimize - worst case
-		fitnessOfBest=+1000000000;
-	else						// Maximize - worst case
-		fitnessOfBest=-1000000000;
-	//}endif
-  }
+	
+	fitnessOfBest=+1000000000;
+  }//endMaquinaInicial
 
   // Obtiene la cinta generada por ma MT
   public static void getSimulacion(){
@@ -222,7 +217,7 @@ public class Kolmogorov {
 	
 	// Checa si las cadenas se parecen por pares
 	for(int i = 0; i < tamCinta-1; i++)
-		F = ((cadenaAct.substring(i,i+2).equals(cadenaMeta.substring(i,i+2))) ? F:F+6);
+		F = ((cadenaAct.substring(i,i+2).equals(cadenaMeta.substring(i,i+2))) ? F:F+2);
 
 	// Checa si las cadenas se parecen por tercias
 	for(int i = 0; i < tamCinta-2; i++)
@@ -234,26 +229,6 @@ public class Kolmogorov {
 	return;
   }//endEvalua
 
-/*		
- *Selecciona el TOH
- */
-  public static void selecciona() {
-	if (MM==0){					// Minimiza
-		if (fitness < fitnessOfBest){
-			fitnessOfBest=fitness;
-			mejorCadena = cadenaAct;
-			mejorMT = maquinaAct;
-  		}//endIf
-	}else{						// Maximiza
-		if (fitness > fitnessOfBest){
-			fitnessOfBest=fitness;
-			mejorCadena = cadenaAct;
-			mejorMT = maquinaAct;
-  		}//endIf
-	}//endIf
-	return;
-  }//endSelecciona
-
   public static int distanciaHamming(String approx){
 	  int d = 0;
 
@@ -262,7 +237,7 @@ public class Kolmogorov {
 	  }
 
 	  return d;
-  }
+  } //endDistanciaHamming
 
   public static void main(String[] args) throws Exception {
 	double sim;
@@ -270,7 +245,6 @@ public class Kolmogorov {
 	String resp;
 	boolean flag  = false;
 
-	br = new BufferedReader(new InputStreamReader(System.in));
 	//obj = "0100110001110101010101010100100100010101001100000010101111";
 	//obj = "1011";
 	// obtiene la cadena meta
@@ -279,9 +253,9 @@ public class Kolmogorov {
 
 	n = obj.length();
 
-	MM = 0;	
 	steps = 5000;
 
+	br = new BufferedReader(new InputStreamReader(System.in));
 	System.out.println("\nSe realizarán "+steps+" iteraciones, ¿quieres cambiarlo? (S/N)");
 	resp = br.readLine().toUpperCase();
 
@@ -306,15 +280,20 @@ public class Kolmogorov {
 	}
 
 	maquinaInicial(); // crea la maquina inicial aleatoriamente
-	
 	getSimulacion();
 	evalua();			//Evalua al individuo
+	fitnessOfBest = fitness;
 
 	for (int i=0;i<steps;i++){
-		muta();								//Muta
-		getSimulacion();				//Decodifica la i-ésima cadena
+		muta();					//Muta
+		getSimulacion();				
 		evalua();				//Evalua
-		selecciona();	
+		
+		if(fitness < fitnessOfBest){
+			mejorMT = maquinaAct;
+			mejorCadena = cadenaAct;
+			fitnessOfBest = fitness;
+		}
 
 		if(fitnessOfBest == 0)
 			break;					// Si ya se encontró la exacta entonces deja de iterar
@@ -340,9 +319,9 @@ public class Kolmogorov {
 	System.out.printf("\nSimilitud: %.2f %% \n", sim );
 
 	System.out.println("\nLa descripción de la máquina de Turing se encuentra en MejorTM.txt y la cinta se encuentra en MejorCinta.txt\n");
-
+	System.out.println(obj.length());
   }//endMain
 
 
-	}
-	 //endClass
+}
+ //endClass
