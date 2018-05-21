@@ -35,7 +35,7 @@ public class Kolmogorov {
 	br = new BufferedReader(new InputStreamReader(System.in));
 	String car, fileTarget;
 	String fileName = "";
-	String resp = "",sresp = ""; 
+	String resp = ""; 
 	boolean flag = false;
 	int bytesDatos = 0;
 
