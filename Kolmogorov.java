@@ -21,10 +21,11 @@ public class Kolmogorov {
   public static int L = 1024;
 
   //Tamaño cinta
+  //public static int tamCinta = 2000;
   public static int tamCinta = 2000;
 
   //Numero de pasos maximo para la mt
-  public static int maxPmt = 1500;
+  public static int maxPmt = 1000;
 
   //Cinta de la TM
   public static String cinta;
@@ -36,7 +37,7 @@ public class Kolmogorov {
 	String fileName = "";
 	String resp = ""; 
 	boolean flag = false;
-	int bytesDatos;
+	int bytesDatos = 0;
 
 	while(!flag){
 		System.out.println("Inserte el nombre del archivo que contiene la cadena meta:");
@@ -67,7 +68,7 @@ public class Kolmogorov {
 	if(resp.equals("N")){
 		byte X;
 		bytesDatos = 0;
-
+		obj  = "";
 		System.out.println("Deme el nombre del archivo de salida de imagen numérica:");
 		fileTarget = br.readLine();
 
@@ -104,8 +105,8 @@ public class Kolmogorov {
 			}//end for
 				
 			obj = obj + car;
-		} // end for
 
+		} // end for
 		ps.printf(obj);
 		ps.println();
 		ps.close();
@@ -122,7 +123,7 @@ public class Kolmogorov {
 	while(tamCinta/2 < obj.length())
 		tamCinta = tamCinta*2;
 
-	maxPmt = tamCinta/2;
+	maxPmt = Math.round(tamCinta/2);
   }
 
   public static void formateaInput(){
@@ -319,7 +320,6 @@ public class Kolmogorov {
 	System.out.printf("\nSimilitud: %.2f %% \n", sim );
 
 	System.out.println("\nLa descripción de la máquina de Turing se encuentra en MejorTM.txt y la cinta se encuentra en MejorCinta.txt\n");
-	System.out.println(obj.length());
   }//endMain
 
 

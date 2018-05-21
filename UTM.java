@@ -30,12 +30,14 @@ public class UTM {
                     break;
                 }
             }
-        }finally{ 
+
+            return cintaFinal.toString();
+        }catch(Exception e){ 
             /*
             * Regresa la cinta final.
-            * Si la cabeza se salió de la cinta regresa la cinta hasta ese punto
+            * Si la cabeza se salió de la cinta regresa la cinta original
             */
-            return cintaFinal.toString();  
+            return Cinta;    
         }
     }
 }
