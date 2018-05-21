@@ -21,10 +21,11 @@ public class Kolmogorov {
   public static int L = 1024;
 
   //Tamaño cinta
-  public static int tamCinta = 2000;
+  //public static int tamCinta = 2000;
+  public static int tamCinta = 200;
 
   //Numero de pasos maximo para la mt
-  public static int maxPmt = 1500;
+  public static int maxPmt = 150;
 
   //Cinta de la TM
   public static String cinta;
@@ -122,7 +123,7 @@ public class Kolmogorov {
 	while(tamCinta/2 < obj.length())
 		tamCinta = tamCinta*2;
 
-	maxPmt = tamCinta/2;
+	maxPmt = Math.round(3*tamCinta/4);
   }
 
   public static void formateaInput(){
@@ -319,7 +320,6 @@ public class Kolmogorov {
 	System.out.printf("\nSimilitud: %.2f %% \n", sim );
 
 	System.out.println("\nLa descripción de la máquina de Turing se encuentra en MejorTM.txt y la cinta se encuentra en MejorCinta.txt\n");
-	System.out.println(obj.length());
   }//endMain
 
 
