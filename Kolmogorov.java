@@ -35,9 +35,9 @@ public class Kolmogorov {
 	br = new BufferedReader(new InputStreamReader(System.in));
 	String car, fileTarget;
 	String fileName = "";
-	String resp = ""; 
+	String resp = "",sresp = ""; 
 	boolean flag = false;
-	int bytesDatos;
+	int bytesDatos = 0;
 
 	while(!flag){
 		System.out.println("Inserte el nombre del archivo que contiene la cadena meta:");
@@ -68,7 +68,7 @@ public class Kolmogorov {
 	if(resp.equals("N")){
 		byte X;
 		bytesDatos = 0;
-
+		obj  = "";
 		System.out.println("Deme el nombre del archivo de salida de imagen numérica:");
 		fileTarget = br.readLine();
 
@@ -105,8 +105,8 @@ public class Kolmogorov {
 			}//end for
 				
 			obj = obj + car;
-		} // end for
 
+		} // end for
 		ps.printf(obj);
 		ps.println();
 		ps.close();
